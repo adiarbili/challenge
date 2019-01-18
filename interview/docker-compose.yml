@@ -3,17 +3,21 @@ version: '3'
 services:
 
   web:
-    build:
-      context: ./web/
+    build: ./web/
+    image: interview_web:v1
+    stop_grace_period: 10s
     ports:
       - "5000:5000"
-    volumes:
-      - ./web/app/:/usr/src/app/
+    deploy:
+      replicas: 2
+      update_config:
+        delay: 10s
     command: python app.py
     restart: unless-stopped
 
   nginx:
-    restart: always
     build: ./nginx/
+    image: interview_nginx:v1
+    restart: always
     ports:
       - "80:80"
