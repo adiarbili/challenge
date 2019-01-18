@@ -7,7 +7,7 @@ services:
     image: interview_web:v1
     stop_grace_period: 10s
     ports:
-      - "5000:5000"
+      - "5000"
     deploy:
       replicas: 2
       update_config:
@@ -21,3 +21,5 @@ services:
     restart: always
     ports:
       - "80:80"
+    links:
+      - web

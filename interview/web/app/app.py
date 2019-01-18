@@ -17,8 +17,4 @@ def work(seconds):
     app.logger.info('Slept for : {sec} seconds'.format(sec=seconds))
     return 'I was sleeping for {sec} seconds'.format(sec=seconds)
 
-@app.route('/adi')
-def adi():
-    return 'Hello Adi!'
-
 app.run(host='0.0.0.0', port=5000, debug=True)
