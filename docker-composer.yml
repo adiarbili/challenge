@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+
+  web:
+    build: ./web/
+    image: interview_web:v1
+    stop_grace_period: 10s
+    ports:
+      - 5000
+    command: python app.py
+
+  proxy:
+    #build: ./HAproxy/
+    image: dockercloud/haproxy
+    depends_on:
+      - web
+    environment:
+      - BALANCE=leastconn
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 80:80
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    links:
+      - web
